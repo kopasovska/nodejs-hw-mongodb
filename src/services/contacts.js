@@ -7,11 +7,20 @@ export const getAllContacts = async ({
   perPage,
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
+  filter = {},
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
   const contactsQuery = ContactsCollection.find();
+
+  if (filter.isFavourite) {
+    contactsQuery.where('isFavourite').equals(filter.isFavourite);
+  }
+  if (filter.contactType) {
+    contactsQuery.where('contactType').equals(filter.contactType);
+  }
+
   const contactsCount = await ContactsCollection.find()
     .merge(contactsQuery)
     .countDocuments();
@@ -23,6 +32,14 @@ export const getAllContacts = async ({
     .exec();
 
   const paginationData = calculatePaginationData(contactsCount, perPage, page);
+
+  if (page > paginationData.totalPages && paginationData.totalPages > 0) {
+    return {
+      data: [],
+      ...paginationData,
+      message: `No contacts found on page ${page}`,
+    };
+  }
 
   return {
     data: contacts,
