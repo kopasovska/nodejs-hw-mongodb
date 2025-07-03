@@ -20,14 +20,14 @@ export const createContactSchema = Joi.object({
   isFavourite: Joi.boolean().messages({
     'boolean.base': 'The isFavourite field must be true or false.',
   }),
-  contactsType: Joi.string()
+  contactType: Joi.string()
     .valid('personal', 'home', 'work')
     .required()
     .messages({
-      'any.required': 'The contactsType field is required.',
-      'any.only': 'contactsType must be one of: personal, home, or work.',
-      'string.base': 'contactsType must be a string.',
-      'string.empty': 'contactsType cannot be empty.',
+      'any.required': 'The contactType field is required.',
+      'any.only': 'contactType must be one of: personal, home, or work.',
+      'string.base': 'contactType must be a string.',
+      'string.empty': 'contactType cannot be empty.',
     }),
 });
 
@@ -51,15 +51,15 @@ export const updateContactSchema = Joi.object({
   isFavourite: Joi.boolean().messages({
     'boolean.base': 'The isFavourite field must be true or false.',
   }),
-  contactsType: Joi.string()
+  contactType: Joi.string()
     .min(3)
     .max(20)
     .valid('personal', 'home', 'work')
     .messages({
-      'any.only': 'contactsType must be one of: personal, home, or work.',
-      'string.min': 'contactsType should have at least {#limit} characters',
-      'string.max': 'contactsType name should have at most {#limit} characters',
-      'string.base': 'contactsType must be a string.',
-      'string.empty': 'contactsType cannot be empty.',
+      'any.only': 'contactType must be one of: personal, home, or work.',
+      'string.min': 'contactType should have at least {#limit} characters',
+      'string.max': 'contactType name should have at most {#limit} characters',
+      'string.base': 'contactType must be a string.',
+      'string.empty': 'contactType cannot be empty.',
     }),
 });
