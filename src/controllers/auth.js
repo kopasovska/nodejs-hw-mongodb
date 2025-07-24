@@ -10,6 +10,7 @@ import {
 } from '../services/auth.js';
 import { generateAuthUrl } from '../utils/googleOAuth2.js';
 
+
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
 
@@ -122,3 +123,4 @@ export const loginWithGoogleController = async (req, res) => {
     },
   });
 };
+
